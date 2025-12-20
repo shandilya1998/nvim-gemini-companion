@@ -196,6 +196,9 @@ end
 -- @param cmdOpts table Command options containing args for additional text
 -- @return nil
 function ideSidebar.sendSelectedText(cmdOpts)
+  -- Exit visual mode if we are in it, to ensure marks are updated and we are in normal mode
+  if vim.fn.mode():find('[vV\22]') then vim.cmd('normal! \27') end
+
   local text = cmdOpts.args or ''
   local selectedText = ''
 
